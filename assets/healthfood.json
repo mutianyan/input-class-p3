@@ -1,0 +1,230 @@
+{
+	"textures": [
+		{
+			"image": "healthfood.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 241,
+				"h": 586
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "gfood09.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 127,
+						"h": 126
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 127,
+						"h": 126
+					}
+				},
+				{
+					"filename": "gfood10.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 110,
+						"h": 127
+					},
+					"frame": {
+						"x": 130,
+						"y": 1,
+						"w": 110,
+						"h": 127
+					}
+				},
+				{
+					"filename": "gfood01.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 16,
+						"w": 125,
+						"h": 108
+					},
+					"frame": {
+						"x": 1,
+						"y": 129,
+						"w": 125,
+						"h": 108
+					}
+				},
+				{
+					"filename": "gfood04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 0,
+						"w": 98,
+						"h": 125
+					},
+					"frame": {
+						"x": 128,
+						"y": 130,
+						"w": 98,
+						"h": 125
+					}
+				},
+				{
+					"filename": "gfood07.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 21,
+						"w": 110,
+						"h": 106
+					},
+					"frame": {
+						"x": 1,
+						"y": 239,
+						"w": 110,
+						"h": 106
+					}
+				},
+				{
+					"filename": "gfood03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 21,
+						"w": 126,
+						"h": 107
+					},
+					"frame": {
+						"x": 113,
+						"y": 257,
+						"w": 126,
+						"h": 107
+					}
+				},
+				{
+					"filename": "gfood05.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 0,
+						"w": 92,
+						"h": 126
+					},
+					"frame": {
+						"x": 1,
+						"y": 347,
+						"w": 92,
+						"h": 126
+					}
+				},
+				{
+					"filename": "gfood08.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 16,
+						"w": 128,
+						"h": 110
+					},
+					"frame": {
+						"x": 1,
+						"y": 475,
+						"w": 128,
+						"h": 110
+					}
+				},
+				{
+					"filename": "gfood02.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 128,
+						"h": 96
+					},
+					"frame": {
+						"x": 95,
+						"y": 366,
+						"w": 128,
+						"h": 96
+					}
+				},
+				{
+					"filename": "gfood06.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 34,
+						"y": 5,
+						"w": 62,
+						"h": 120
+					},
+					"frame": {
+						"x": 131,
+						"y": 464,
+						"w": 62,
+						"h": 120
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:eae24e513da7acca231f1ad70b6ae80e:0df7ba82eaa2f23ea5d3bbd2048a9e47:e7f4f512c5ccbe5b24e4e2cfc217d745$"
+	}
+}

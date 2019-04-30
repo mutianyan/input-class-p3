@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-
+<script src="./phaser.js"></script>
 <script type="text/javascript">
 
 var config = {
@@ -29,14 +29,19 @@ var config = {
         preload: preload,
         create: create,
         update: update
+        // render: render
     }
 };
 
 var player;
 var stars;
+var tiles;
 var bombs;
 var platforms;
 var cursors;
+//var left;
+//var right;
+//var up;
 var score = 0;
 var gameOver = false;
 var scoreText;
@@ -47,20 +52,40 @@ var game = new Phaser.Game(config);
 
 // load in 5 assets : 4 images and a sprite sheet
 function preload ()
-{   // first param is the assetkey
-    this.load.image('sky', 'assets/sky.png');
-    this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/star.png');
-    this.load.image('bomb', 'assets/bomb.png');
+{   //adding background music
+    //game.load.audio('music_1','');
+    // first param is the assetkey
+    this.load.image('background', 'assets/background.png');
+    this.load.tilemapTiledJSON('tilemap','assets/tilemap.json');
+    //this.load.atlas('junk_food','assets/healthfood.png','assets/healthfood.json');
+    //this.load.atlas('vegan_food','assets/unhealthfood.png','assets/unhealthfood.json');
+    this.load.json('junk_food', 'assets/healthfood.json');
+
+
+    this.load.image('tileimage','assets/tileimage.png');
+    this.load.image('ground', 'assets/platform4.png');
+    this.load.image('star', 'assets/ufood01.png');
+    this.load.image('bomb', 'assets/money.png');
     // as a sprite sheet, not an 
-    this.load.spritesheet('dude', 'dude.png', {frameWidth: 64, frameHeight: 64})
-    this.load.spritesheet('dude_left', 'dude_left.png', {frameWidth: 64, frameHeight: 64})
-    //this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('dude', 'assets/normaldude.png', {frameWidth: 64, frameHeight: 64})
 }
 
 function create ()
-{
+{   
 
+    var map = this.make.tilemap({ key: 'tilemap' });
+    var tileset = map.addTilesetImage('kenney');
+    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    layer.setCollisionByProperty({ collides: true });
+
+    this.anims.create({
+        key: 'turn',
+        frames: [ { key: 'dude', frame: 6 } ], // use frame 1 to 4
+        //frames: this.anims.generateFrameNumbers('dude', { start: 7, end: 7 }),
+        frameRate: 10,
+        repeat: -1});
+    //music_1 = game.add.audio('music_1',0.8,true);
+    //music_1.play();
     // building a scene
 
     //  A simple background for our game
@@ -70,19 +95,37 @@ function create ()
     // this.add.image(0,0, 'sky').setOrigin(0,0)
 
     // above the background <=> add second
-    this.add.image(400, 300, 'sky');
+    
+    //set world
+    //this.world.setBounds(0,0,4000,600);
+    this.add.sprite(0,0,'background').setOrigin(0,0);
+    //this.add.image(400, 300, 'background');
+    //var bg = this.add.tileSprite(400,300,0,0,'background');
+    
+    
+    //let tilemap = this.add.tilemap('tilemap');
+    //let borders = tilemap.addTilesetImage('tile','tileimage');
+
+    //layers
+   // let tilelayer = tilemap.createStaticLayer('Tile Layer 1',borders,0,0);
+    //tilelayer.setCollisionByProperty({collides: true});
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(400, 818, 'ground').setScale(30).refreshBody();
+    
 
     //  Now let's create some ledges
-    platforms.create(600, 400, 'ground');
+    platforms.create(600, 300, 'ground');
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
+    platforms.create(100, 500, 'ground');
+    platforms.create(200, 75, 'ground');
+    platforms.create(300, 200, 'ground');
+    platforms.create(350, 400, 'ground');
 
 
 
@@ -93,29 +136,37 @@ function create ()
     player = this.physics.add.sprite(100, 450, 'dude'); // dynamic body by default
 
     //  Player physics properties. Give the little guy a slight bounce.
+    player.setMaxVelocity(300, 400).setFriction(800, 0);
+    player.body.accelGround = 1200;
+    player.body.accelAir = 600;
+    player.body.jumpSpeed = 300;
     player.setBounce(0.2);
-    player.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
+    //player.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
+
+    //set camara follow
+    //this.camera.follow(player);
+    player.setScale(0.7);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
         key: 'left',
-        frames: [ { key: 'dude_left', frame: 2 } ], 
-        //frames: this.anims.generateFrameNumbers('dude_left', { start: 1, end: 2 }),
-        frameRate: 1
-        //repeat: -1 // tell the animation to loop
+        //frames: [ { key: 'dude', frame: 6 } ], 
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1 // tell the animation to loop
     });
 
     this.anims.create({
         key: 'turn',
-        //frames: [ { key: 'dude', frame: 0 } ], // use frame 1 to 4
-        frames: this.anims.generateFrameNumbers('dude', { start: 19, end: 24 }),
-        frameRate: 1,
+        frames: [ { key: 'dude', frame: 6 } ], // use frame 1 to 4
+        //frames: this.anims.generateFrameNumbers('dude', { start: 7, end: 7 }),
+        frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 67, end: 71 }),
+        frames: this.anims.generateFrameNumbers('dude', { start: 8, end: 13 }),
         frameRate: 10, // 10 frame per second
         repeat: -1
     });
@@ -123,9 +174,10 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
+
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
-        key: 'star', // set the texture to be star image, including all the children 
+        key: 'junk_food', // set the texture to be star image, including all the children 
         repeat: 11, // create 1 child automatically, then repeat 11 times, we will have 12 stars
         setXY: { x: 12, y: 0, stepX: 70 } // spacing childre using steps
     });
@@ -137,11 +189,12 @@ function create ()
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
     });
+    
 
     bombs = this.physics.add.group();
 
     //  The score 16x16 is coordinate
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(650, 12, 'Number: 0', { fontSize: '20px', fill: '#000' });
 
     //  Collide the player and the stars with the platforms
     // takes two objects, test for collision, perform separation against them
@@ -149,14 +202,39 @@ function create ()
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(bombs, platforms);
 
+    
+    //this.physics.add.collider(player, tilelayer);
+    //this.physics.add.collider(stars, tilelayer);
+    
+    
+
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function (callback function)
     this.physics.add.overlap(player, stars, collectStar, null, this);
+    //this.physics.add.overlap(player, junk, collectJunk, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+
+
+
+
+    // camera
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.startFollow(player);
+
+    cursors = this.input.keyboard.createCursorKeys();
+
+    var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
+        fontSize: '18px',
+        fill: '#ffffff'
+    });
+    help.setScrollFactor(0);
+    
 }
 
 function update ()
 {
+    
     if (gameOver)
     {
         return;
@@ -164,7 +242,7 @@ function update ()
 
     if (cursors.left.isDown)
     {
-        // negative horizontal velocity
+        //negative horizontal velocity
         player.setVelocityX(-160);
         // start the runnig left animation
         player.anims.play('left', true);
@@ -187,6 +265,7 @@ function update ()
     {
         player.setVelocityY(-330); //330 px/sec sq
     }
+
 }
 
 function collectStar (player, star)
@@ -195,8 +274,8 @@ function collectStar (player, star)
     star.disableBody(true, true);
 
     //  Add and update the score
-    score += 10;
-    scoreText.setText('Score: ' + score);
+    score += 1;
+    scoreText.setText('Numbers: ' + score);
 
 
     // a Group method called countActive, to see how many stars are left alive
@@ -223,6 +302,11 @@ function collectStar (player, star)
 }
 
 
+// function random generat food
+
+
+
+
 // stops the game and turn player red
 function hitBomb (player, bomb)
 {
@@ -234,6 +318,7 @@ function hitBomb (player, bomb)
 
     gameOver = true;
 }
+
 
 </script>
 
