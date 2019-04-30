@@ -46,6 +46,7 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
+
 var game = new Phaser.Game(config);
 
 
@@ -72,6 +73,9 @@ function preload ()
 
 function create ()
 {   
+    
+    
+//
 
     var map = this.make.tilemap({ key: 'tilemap' });
     var tileset = map.addTilesetImage('kenney');
@@ -229,11 +233,51 @@ function create ()
         fill: '#ffffff'
     });
     help.setScrollFactor(0);
+
+    
+       
+
     
 }
 
-function update ()
+function update (pointer)
 {
+    //this.input.mouse.disableContextMenu();
+
+
+    this.input.on('pointerdown', function (pointer) {
+    // sx = pointer.x;
+    // sy = pointer.y;
+    // draw = true;
+        player.setPosition(pointer.worldX, pointer.worldY);
+        //player.startFollow(pointer);
+
+    });
+
+    this.input.on('pointerup', function () {
+        
+        });
+
+    this.input.on('pointermove', function (pointer) {
+        //player's direction based on angle
+        var angle = pointer.worldX - player.worldX;
+        
+        if (angle < 0)
+        {
+            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player.anims.play('left', true);
+        }
+         else if (angle > 0)
+        {
+            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player.anims.play('right', true);
+        }else
+        {
+            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player.anims.play('turn');
+        }
+        
+    }, this);   
     
     if (gameOver)
     {
@@ -313,11 +357,14 @@ function hitBomb (player, bomb)
     this.physics.pause();
 
     player.setTint(0xff0000);
+    player.setScale(0.1);
 
     player.anims.play('turn');
 
     gameOver = true;
 }
+
+
 
 
 </script>
