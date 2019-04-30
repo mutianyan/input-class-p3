@@ -13,5 +13,11 @@ Place the downloaded file in the root directory of the server.
 Make sure the server is running.
 Then you can play with our accessible game!
 
+Github Demo:
+https://mutianyan.github.io/input-class-p3/
+
+Video Demo:
+https://drive.google.com/file/d/1pTAhiFRrmvpeRrqVmKC27zPreI2wbCGi/view?usp=sharing
+
 The source code is based on Phaser Tutorial
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part1
