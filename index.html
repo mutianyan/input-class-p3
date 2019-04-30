@@ -34,14 +34,12 @@ var config = {
 };
 
 var player;
+var player2;
 var stars;
 var tiles;
 var bombs;
 var platforms;
 var cursors;
-//var left;
-//var right;
-//var up;
 var score = 0;
 var gameOver = false;
 var scoreText;
@@ -56,8 +54,6 @@ function preload ()
     // first param is the assetkey
     this.load.image('background', 'assets/background.png');
     this.load.tilemapTiledJSON('tilemap','assets/tilemap.json');
-    //this.load.atlas('junk_food','assets/healthfood.png','assets/healthfood.json');
-    //this.load.atlas('vegan_food','assets/unhealthfood.png','assets/unhealthfood.json');
     this.load.json('junk_food', 'assets/healthfood.json');
 
     this.load.image('healthy01', 'healthy/gfood01.png');
@@ -73,19 +69,13 @@ function preload ()
     this.load.image('unhealthy05', 'unhealthy/ufood05.png');
 
 
-
-
-
-
-
-
-
     this.load.image('tileimage','assets/tileimage.png');
     this.load.image('ground', 'assets/platform4.png');
     this.load.image('star', 'assets/ufood01.png');
     this.load.image('bomb', 'assets/money.png');
     // as a sprite sheet, not an 
     this.load.spritesheet('dude', 'assets/normaldude.png', {frameWidth: 64, frameHeight: 64})
+    this.load.spritesheet('dude2', 'assets/normaldude2.png', {frameWidth: 64, frameHeight: 64})
 }
 
 function create ()
@@ -96,12 +86,6 @@ function create ()
     var layer = map.createStaticLayer(0, tileset, 0, 0);
     layer.setCollisionByProperty({ collides: true });
 
-    this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'dude', frame: 6 } ], // use frame 1 to 4
-        //frames: this.anims.generateFrameNumbers('dude', { start: 7, end: 7 }),
-        frameRate: 10,
-        repeat: -1});
     //music_1 = game.add.audio('music_1',0.8,true);
     //music_1.play();
     // building a scene
@@ -172,11 +156,9 @@ function create ()
 
 
 
-
-
-
     // The player and its settings: creation of physical sprite and some animations
     player = this.physics.add.sprite(100, 450, 'dude'); // dynamic body by default
+    player2 = this.physics.add.sprite(100, 450, 'dude2'); // dynamic body by default
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setMaxVelocity(300, 400).setFriction(800, 0);
@@ -187,18 +169,17 @@ function create ()
     player.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
     player.setScale(0.7);
 
-
-    player2 = this.physics.add.sprite(50, 400, 'dude');
     player2.setMaxVelocity(300, 400).setFriction(800, 0);
     player2.body.accelGround = 1200;
     player2.body.accelAir = 600;
     player2.body.jumpSpeed = 300;
     player2.setBounce(0.2);
     player2.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
-    player2.setScale(1);
+    player2.setScale(0.7);
 
 
     //  Our player animations, turning, walking left and walking right.
+    //player 1
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 5 }),
@@ -220,6 +201,31 @@ function create ()
         repeat: -1
     });
 
+
+    // player 2
+        this.anims.create({
+        key: 'left2',
+        frames: this.anims.generateFrameNumbers('dude2', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1 // tell the animation to loop
+    });
+
+    this.anims.create({
+        key: 'turn2',
+        frames: [ { key: 'dude2', frame: 6 } ], 
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'right2',
+        frames: this.anims.generateFrameNumbers('dude2', { start: 8, end: 13 }),
+        frameRate: 10, // 10 frame per second
+        repeat: -1
+    });
+
+
+
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -227,7 +233,7 @@ function create ()
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
             key: 'healthy01',// set the texture to be star image, including all the children 
-            repeat: 5, // create 1 child automatically, then repeat 11 times, we will have 12 stars
+            repeat: 100, // create 1 child automatically, then repeat 11 times, we will have 12 stars
             setXY: { x: 12, y: 0, stepX: 50 } // spacing children using steps
         });
 
@@ -252,11 +258,9 @@ function create ()
 
         //  Give each star a slightly different bounce
         // 0 means no bouce, 1 full bounce
-        //child.setXY(12, 0)
         console.log(1);
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
         child.setScale(0.2);
-        //child.setXY(12,0,50);
 
     });
     
@@ -301,12 +305,13 @@ function update (pointer)
         return;
     }
 
+    // i tracker = player 2 
 
     this.input.on('pointerdown', function (pointer) {
     // sx = pointer.x;
     // sy = pointer.y;
     // draw = true;
-        player.setPosition(pointer.worldX, pointer.worldY);
+        player2.setPosition(pointer.worldX, pointer.worldY);
         //player.startFollow(pointer);
 
     });
@@ -321,22 +326,23 @@ function update (pointer)
         
         if (angle < 0)
         {
-            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
-            player.anims.play('left', true);
+            this.physics.moveToObject(player2, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player2.anims.play('left2', true);
         }
          else if (angle > 0)
         {
-            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
-            player.anims.play('right', true);
+            this.physics.moveToObject(player2, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player2.anims.play('right2', true);
         }else
         {
-            this.physics.moveToObject(player, {x: pointer.worldX, y: pointer.worldY}, 240);
-            player.anims.play('turn');
+            this.physics.moveToObject(player2, {x: pointer.worldX, y: pointer.worldY}, 240);
+            player2.anims.play('turn2');
         }
         
     }, this);   
-    
 
+
+    // keyboard control = player 1
     if (cursors.left.isDown)
     {
         //negative horizontal velocity
