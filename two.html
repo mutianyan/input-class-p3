@@ -56,7 +56,7 @@ function preload ()
     //game.load.audio('music_1','');
     // first param is the assetkey
     this.load.image('background', 'assets/background.png');
-    //this.load.tilemapTiledJSON('tilemap','assets/tilemap.json');
+    this.load.tilemapTiledJSON('tilemap','assets/tilemap.json');
     this.load.json('junk_food', 'assets/healthfood.json');
 
     this.load.image('healthy01', 'healthy/gfood01.png');
@@ -86,7 +86,7 @@ function preload ()
 
 function create ()
 {   
-    // var map = this.make.tilemap({ key: 'tilemap' });
+    var map = this.make.tilemap({ key: 'tilemap' });
     // this.physics.world.bounds.setTo(0, 0, 4000, 600);
     // var tileset = map.addTilesetImage('kenney');
     // var layer = map.createStaticLayer(0, tileset, 0, 0);
