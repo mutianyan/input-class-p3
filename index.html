@@ -122,15 +122,39 @@ function create ()
     platforms.create(400, 850, 'ground').setScale(40).refreshBody();
     
 
-    //  Now let's create some ledges
+    //  Now let's create map
     platforms.create(600, 300, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
-    platforms.create(100, 500, 'ground');
+    platforms.create(50, 300, 'ground');
+    platforms.create(750, 180, 'ground');
+    platforms.create(120, 500, 'ground');
     platforms.create(200, 75, 'ground');
     platforms.create(300, 200, 'ground');
     platforms.create(350, 400, 'ground');
-    platforms.create(850, 500, 'ground');
+    platforms.create(800, 400, 'ground');
+
+    platforms.create(1000, 300, 'ground');
+    platforms.create(1200, 100, 'ground');
+    platforms.create(1300, 450, 'ground');
+    platforms.create(1500, 380, 'ground');
+    platforms.create(1500, 200, 'ground');
+    platforms.create(1700, 310, 'ground');
+    platforms.create(1900, 240, 'ground');
+    platforms.create(1900, 450, 'ground');
+    platforms.create(2100, 350, 'ground');
+    platforms.create(2200, 200, 'ground');
+
+    platforms.create(2400, 450, 'ground');
+    platforms.create(2500, 300, 'ground');
+    platforms.create(2800, 350, 'ground');
+    platforms.create(2700, 150, 'ground');
+    platforms.create(2700, 450, 'ground');
+    platforms.create(2900, 250, 'ground');
+    platforms.create(3200, 450, 'ground');
+    platforms.create(3200, 200, 'ground');
+    platforms.create(3400, 300, 'ground');
+    platforms.create(3700, 450, 'ground');
+    platforms.create(3800, 300, 'ground');
+    platforms.create(4000, 150, 'ground');
 
 
 
@@ -179,7 +203,7 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-
+    //var testInt= 200;
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'junk_food', // set the texture to be star image, including all the children 
@@ -301,9 +325,9 @@ function update (pointer)
     }
     else
     {
-        //player.setVelocityX(0);
+        player.setVelocityX(0);
 
-        // player.anims.play('turn');
+        player.anims.play('turn');
     }
 
     // jump: test if the user is in the sky
