@@ -119,7 +119,7 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 818, 'ground').setScale(30).refreshBody();
+    platforms.create(400, 850, 'ground').setScale(40).refreshBody();
     
 
     //  Now let's create some ledges
@@ -130,6 +130,7 @@ function create ()
     platforms.create(200, 75, 'ground');
     platforms.create(300, 200, 'ground');
     platforms.create(350, 400, 'ground');
+    platforms.create(850, 500, 'ground');
 
 
 
@@ -182,8 +183,8 @@ function create ()
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'junk_food', // set the texture to be star image, including all the children 
-        repeat: 11, // create 1 child automatically, then repeat 11 times, we will have 12 stars
-        setXY: { x: 12, y: 0, stepX: 70 } // spacing childre using steps
+        repeat: 80, // create 1 child automatically, then repeat 11 times, we will have 12 stars
+        setXY: { x: 12, y: 0, stepX: 50 } // spacing childre using steps
     });
 
     stars.children.iterate(function (child) {
@@ -199,6 +200,7 @@ function create ()
 
     //  The score 16x16 is coordinate
     scoreText = this.add.text(650, 12, 'Number: 0', { fontSize: '20px', fill: '#000' });
+    scoreText.setScrollFactor(0);
 
     //  Collide the player and the stars with the platforms
     // takes two objects, test for collision, perform separation against them
@@ -228,11 +230,11 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
-        fontSize: '18px',
-        fill: '#ffffff'
-    });
-    help.setScrollFactor(0);
+    // var help = this.add.text(16, 16, 'Arrow keys to move. Press "up" to jump.', {
+    //     fontSize: '18px',
+    //     fill: '#ffffff'
+    // });
+    // help.setScrollFactor(0);
 
     
        
