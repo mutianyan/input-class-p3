@@ -176,7 +176,7 @@ function create ()
     player.body.jumpSpeed = 300;
     player.setBounce(0.2);
     player.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
-    player.setScale(1);
+    player.setScale(0.7);
 
     player2.setMaxVelocity(300, 400).setFriction(800, 0);
     player2.body.accelGround = 1200;
@@ -184,7 +184,7 @@ function create ()
     player2.body.jumpSpeed = 300;
     player2.setBounce(0.2);
     player2.setCollideWorldBounds(true); // collide with worlds bound; so the player do not get out
-    player2.setScale(1);
+    player2.setScale(0.7);
 
 
     //  Our player animations, turning, walking left and walking right.
@@ -322,7 +322,6 @@ function update (pointer)
     //this.input.mouse.disableContextMenu();
     if (gameOver)
     {
-        console.log("game over");
         return;
     }
 
@@ -535,7 +534,6 @@ function hitBomb (player, bomb)
     player2.anims.play('turn');
     //this.create(3600,300, 'gameover');
     this.add.sprite(3600,300, 'gameover');
-    //console.log("game is over");
     gameOver = true;
     
 }
