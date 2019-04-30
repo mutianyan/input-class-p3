@@ -87,10 +87,10 @@ function preload ()
 function create ()
 {   
     var map = this.make.tilemap({ key: 'tilemap' });
-    // this.physics.world.bounds.setTo(0, 0, 4000, 600);
-    // var tileset = map.addTilesetImage('kenney');
-    // var layer = map.createStaticLayer(0, tileset, 0, 0);
-    // layer.setCollisionByProperty({ collides: true });
+    this.physics.world.bounds.setTo(0, 0, 4000, 600);
+    var tileset = map.addTilesetImage('kenney');
+    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    layer.setCollisionByProperty({ collides: true });
 
     //music_1 = game.add.audio('music_1',0.8,true);
     //music_1.play();
