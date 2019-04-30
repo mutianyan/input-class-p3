@@ -1,7 +1,7 @@
 Group members: Yinbo Chen, Mutian Yan
 
 Descriptions/ Design of Game
-There are two input methods that we used: keyboard and iTracker. This game can be played solo or with a partner. It is a Phaser 3 based game. Enjoy!
+There are two input methods that we used: keyboard and iTracker. This game can be played solo or with a partner. It is a Phaser 3 based game. The accessible feature can make the game playing with anyone who is able to tilt their heads a little. You can really make the rules with your friends. Either the player who finishes first wins or simply the player who gains more weight within a period of time. Enjoy!
 
 System Requirement:
 If you run on local, please install server on your computer. We use MAMMP.
